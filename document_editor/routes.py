@@ -55,7 +55,7 @@ def editor(file_id=None):
     return render_template("editor.html", form=form, content=data)
 
 
-@main_bp.route('/', methods=['GET'])
+@main_bp.route('/documents', methods=['GET'])
 @login_required
 def documents():
     files_meta = UserFiles.query.filter_by(user_id=current_user.get_id()).all()
@@ -72,7 +72,7 @@ def documents():
             print('File not found -->', f.file_name)
             db.session.delete(f)
             db.session.commit()
-    return render_template("documents.html", files=files)
+    return render_template("documents.html", files=files, title='Documents')
 
 
 @main_bp.route('/download_file/<int:idx>', methods=['GET'])

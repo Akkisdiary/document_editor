@@ -1,103 +1,46 @@
 {% extends "layout.html" %}
 
-{% block pagestyles %}
-<link href="{{ url_for('static',filename='css/app-style.css') }}" rel="stylesheet" />
-<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
-{% endblock %}
-
 {% block content %}
-<div class="card card-authentication1 mx-auto my-5">
-  <div class="card-body">
-    <div class="card-content p-2">
-      <div class="text-center">
-        <img src="{{ url_for('static',filename='images/wa.png') }}" />
+<div class="container">
+
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-0">
+
+      <div class="row">
+        <div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+        <div class="col-lg-6">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Create an Account</h1>
+            </div>
+            <form method="POST" action="/signup" class="user">
+              {{ form.csrf_token }}
+              <div class="form-group">
+                {{ form.name(placeholder='Your Name',class='form-control form-control-user') }}
+              </div>
+              <div class="form-group">
+                {{ form.email(placeholder='Email Address', class='form-control form-control-user') }}
+              </div>
+              <div class="form-group">
+                {{ form.password(placeholder='********', class='form-control form-control-user') }}
+              </div>
+              <div class="form-group">
+                {{ form.confirm(placeholder='Repeat Password', class='form-control form-control-user') }}
+              </div>
+              {{ form.submit(class="btn btn-primary btn-user btn-block") }}
+            </form>
+            <hr>
+            <div class="text-center">
+              <a class="small" href="#">Forgot Password?</a>
+            </div>
+            <div class="text-center">
+              <a class="small" href="{{ url_for('auth_bp.login') }}">Already have an account? Login!</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-title text-uppercase text-center py-2">Create an Account</div>
-      <form method="POST" action="/signup">
-        {{ form.csrf_token }}
-        <div class="form-group">
-          <div class="position-relative has-icon-left">
-            {{ form.name.label(class='sr-only') }}
-            {{ form.name(placeholder='John Smith',class='form-control') }}
-            <div class="form-control-position">
-              <i class="icon-user"></i>
-            </div>
-            {% if form.name.errors %}
-            <ul class="errors">
-              {% for error in form.email.errors %}
-              <li>{{ error }}</li>{% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="position-relative has-icon-left">
-            {{ form.email.label(class='sr-only') }}
-            {{ form.email(placeholder='youremail@example.com', class='form-control') }}
-            <div class="form-control-position">
-              <i class="icon-envelope-open"></i>
-            </div>
-            {% if form.email.errors %}
-            <ul class="errors">
-              {% for error in form.email.errors %}
-              <li>{{ error }}</li>{% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="position-relative has-icon-left">
-            {{ form.password.label(class='sr-only') }}
-            {{ form.password(placeholder='********', class='form-control') }}
-            <div class="form-control-position">
-              <i class="icon-lock"></i>
-            </div>
-            {% if form.password.errors %}
-            <ul class="errors">
-              {% for error in form.password.errors %}
-              <li>{{ error }}</li>{% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="position-relative has-icon-left">
-            {{ form.confirm.label(class='sr-only') }}
-            {{ form.confirm(placeholder='********', class='form-control') }}
-            <div class="form-control-position">
-              <i class="icon-lock"></i>
-            </div>
-            {% if form.confirm.errors %}
-            <ul class="errors">
-              {% for error in form.confirm.errors %}
-              <li>{{ error }}</li>{% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-        </div>
-        <div class="form-group">
-          {{ form.submit(class="btn btn-danger btn-block waves-effect waves-light") }}
-        </div>
-
-      </form>
-      <div class="login-signup">
-        <span>Already have an account? <a href="{{ url_for('auth_bp.login') }}">Log in.</a></span>
-      </div>
-      {% for message in get_flashed_messages() %}
-
-      <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-      </div>
-      {% endfor %}
     </div>
   </div>
-</div>
-<div class="authentication-bg"></div>
-{% endblock %}
 
-{% block additionalscripts %}
-<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</div>
 {% endblock %}

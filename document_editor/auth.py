@@ -29,6 +29,7 @@ def login():
     return render_template(
         'login.html',
         form=form,
+        title='Login'
     )
 
 
@@ -51,6 +52,7 @@ def signup():
     return render_template(
         'signup.html',
         form=form,
+        title='Sign Up'
     )
 
 
