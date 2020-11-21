@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block pagestyles %}
+<link href="{{ url_for('static',filename='plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/sidebar-menu.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='css/app-style.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center error-pages">
+                    <h1 class="error-title text-warning"> 404</h1>
+                    <h2 class="error-sub-title text-white">Internal server error</h2>
+
+                    <p class="error-message text-white text-uppercase">Please try after some time</p>
+
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-warning btn-round shadow-warning m-1">Go To Editor </a>
+                        <a href="{{ url_for('main_bp.documents') }}"
+                            class="btn btn-outline-warning btn-round m-1">Previous Page </a>
+                    </div>
+
+                    <div class="mt-4">
+                        <p class="text-light">Copyright © 2018 <span class="text-warning">DashRock </span>| All rights
+                            reserved.</p>
+                    </div>
+                    <hr class="w-50">
+                    <div class="mt-2">
+                        <a href="javascript:void()"
+                            class="btn-social btn-social-circle btn-facebook waves-effect waves-light m-1"><i
+                                class="fa fa-facebook"></i></a>
+                        <a href="javascript:void()"
+                            class="btn-social btn-social-circle btn-google-plus waves-effect waves-light m-1"><i
+                                class="fa fa-google-plus"></i></a>
+                        <a href="javascript:void()"
+                            class="btn-social btn-social-circle btn-behance waves-effect waves-light m-1"><i
+                                class="fa fa-behance"></i></a>
+                        <a href="javascript:void()"
+                            class="btn-social btn-social-circle btn-dribbble waves-effect waves-light m-1"><i
+                                class="fa fa-dribbble"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block additionalscripts %}
+<script src="{{ url_for('static',filename='js/app-script.js') }}"></script>
+{% endblock %}

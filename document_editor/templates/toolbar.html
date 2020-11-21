@@ -1,0 +1,56 @@
+<div class="toolbar">
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/toolbar.css') }}">
+
+    <button class="fa fa-italic" onclick="document.execCommand('italic',false,null);"
+        title="Italicize Highlighted Text"></button>
+    <button class="fa fa-bold" onclick="document.execCommand( 'bold',false,null);"
+        title="Bold Highlighted Text"></button>
+    <button class="fa fa-underline" onclick="document.execCommand( 'underline',false,null);"></button>
+
+    <select id="input-font" class="input" onchange="changeFont (this);">
+        <option value="Arial">Arial</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Sans serif">Sans serif</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Palatino">Palatino</option>
+        <option value="Garamond">Garamond</option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+        <option value="Arial Black">Arial Black</option>
+        <option value="Tahoma">Tahoma</option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+    </select>
+
+    <select id="fontSize" onclick="changeSize()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+    </select>
+
+    <button class="fa fa-align-left" onclick="document.execCommand('justifyLeft',false,null);">
+    </button>
+    <button class="fa fa-align-justify" onclick="document.execCommand('justifyCenter',false,null);">
+    </button>
+    <button class="fa fa-align-right" onclick="document.execCommand('justifyRight',false,null);">
+    </button>
+    <button class="fa fa-list-ol" onclick="document.execCommand('insertOrderedList', false, null);">
+    </button>
+    <button class="fa fa-list" onclick="document.execCommand('insertUnorderedList',false, null)">
+    </button>
+
+    <input type="file" id="file-upload-btn" accept=".docx, .txt" hidden />
+    <label for="file-upload-btn"><i class="fa fa-upload"></i><span>&nbspFile</span>
+        <div class="loader file-upload-spinner"></div>
+    </label>
+
+    <script src="{{ url_for('static',filename='js/custom-toolbar.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/file-handler.js') }}"></script>
+</div>

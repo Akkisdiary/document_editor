@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block pagestyles %}
+<link href="{{ url_for('static',filename='plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='css/animate.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/sidebar-menu.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='css/app-style.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='plugins/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet"
+   type="text/css" />
+<link href="{{ url_for('static',filename='plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css') }}"
+   rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper" class="toggled">
+   {% include 'sidebar.html' %}
+
+   {% include 'navbar.html' %}
+
+   <div class="clearfix"></div>
+
+   <div class="content-wrapper docmentContentWrapper" style="padding-top: 70px;">
+      <div class="container-fluid">
+         <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+               <h4 class="page-title" style="padding-top: 20px;">Documents</h4>
+            </div>
+            <div class="col-sm-3">
+               <a href="/" type="button" class="btn btn-danger waves-effect waves-light m-1">
+                  <i aria-hidden="true" class="fa fa-plus" style="right: 0em;"></i>
+                  New File</a>
+            </div>
+         </div>
+
+         <hr>
+
+         <div class="row" style="display: flex;">
+            {% if files %}
+            {% for f, file_content in files %}
+            <div class="file-card col-lg-3" id="{{ f.id }}">
+
+               <div class="card border border-danger">
+                  <a href="/editor/{{ f.id }}">
+                     <div class="card-body" style="height: 15em;">
+                        <h5 class="card-title text-dark">{{ f.file_name }}</h5>
+                        <p class="card-text" style="color:#636363">{{ file_content | safe }}</p>
+                     </div>
+                  </a>
+                  <div class="file-options card-footer border-danger" style="color:#636363">
+                     <div class="row">
+                        <div class="col-lg-8">
+                           {{ f.modified.strftime('%d %b %Y %I:%M') }}
+                        </div>
+                        <div class="col-lg-2">
+                           <a type="button" class="download-file fa fa-cloud-download" href="/download_file/{{ f.id }}"
+                              style="font-size:19px; color:#fd3550; background-color: transparent; border: transparent;"></a>
+                        </div>
+                        <div class="col-lg-2">
+                           <button type="button" class="delete-file zmdi zmdi-delete" id="{{ f.id }}"
+                              style="font-size:19px; color:#fd3550; background-color: transparent; border: transparent;"></button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h1>No Files</h1>
+            {% endif %}
+         </div>
+
+         <!-- <div class="row">
+            <div class="row mt-4">
+               <div class="col-lg-3">
+                  <ul class="pagination pagination-flat-danger">
+                     <li class="page-item"><a class="page-link" href="javascript:void();">Previous</a></li>
+                     <li class="page-item"><a class="page-link" href="javascript:void();">1</a></li>
+                     <li class="page-item active"><a class="page-link" href="javascript:void();">2</a></li>
+                     <li class="page-item"><a class="page-link" href="javascript:void();">3</a></li>
+                     <li class="page-item"><a class="page-link" href="javascript:void();">Next</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div> -->
+
+      </div>
+   </div>
+</div>
+{% endblock %}
+
+{% block additionalscripts %}
+<script src="{{ url_for('static',filename='plugins/simplebar/js/simplebar.js') }}"></script>
+<script src="{{ url_for('static',filename='js/waves.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebar-menu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/app-script.js') }}"></script>
+<script src="{{ url_for('static',filename='plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ url_for('static',filename='plugins/ion-rangeslider/js/range-slider-script.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ url_for('static',filename='js/file-handler.js') }}"></script>
+{% endblock %}

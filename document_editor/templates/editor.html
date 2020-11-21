@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+
+{% block pagestyles %}
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/sidebar-menu.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='css/app-style.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static',filename='plugins/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet"
+   type="text/css" />
+<link href="{{ url_for('static',filename='plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css') }}"
+   rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ url_for('static',filename='css/custom-editor.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+   {% include 'sidebar.html' %}
+
+   <div class="clearfix"></div>
+
+   <div class="content-wrapper">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-3">
+               <div class="card">
+                  <div class="card-body">
+                     <div style="margin:1em;">
+                        <button type="button" class="btn btn-outline-danger waves-effect waves-light toggle-menu"
+                           style="width: 100%;"><i class="fa fa-bars" style="color: inherit; font-weight: inherit;"></i>
+                           <span>Home</span></button>
+                     </div>
+                     <div style="margin:1em;">
+                        <form class="search-bar">
+                           <input type="text" class="form-control" placeholder="Enter keywords"
+                              style="width:100%; background-color: #d3d3d352; height: 40px;">
+                           <a href="javascript:void();"><i class="icon-magnifier" style="padding-top: 4px;"></i></a>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div class="card">
+                  <div class="card-body">
+                     <h5 style="text-align: left;">Text Toner</h5>
+
+                     <hr>
+                     <label style="padding-left: 12px;">Comic</label>
+                     <input type="text" id="rangeComic" value="" name="range" />
+                     <hr>
+
+                     <label style="padding-left: 12px;">Critics</label>
+                     <input type="text" id="rangeCritics" value="" name="range" />
+                     <hr>
+
+                     <label style="padding-left: 12px;">Irony</label>
+                     <input type="text" id="rangeIrony" value="" name="range" />
+                     <hr>
+
+                     <label style="padding-left: 12px;">Business</label>
+                     <input type="text" id="rangeBusiness" value="" name="range" />
+                     <hr>
+
+                     <label style="padding-left: 12px;">Article</label>
+                     <input type="text" id="rangeArticle" value="" name="range" />
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-6">
+               <div class="card">
+                  <div class="card-body">
+                     {% include 'toolbar.html' %}
+                     <div class="editor-container">
+                        <div class="backdrop">
+                           <div class="highlights"></div>
+                        </div>
+                        {% if content %}
+                        <div class="custom-editor" placeholder="Start writing here..." contenteditable="true">
+                           {{- content | safe }}</div>
+                        {% else %}
+                        <div class="custom-editor" placeholder="Start writing here..." contenteditable="true"></div>
+                        {% endif %}
+                     </div>
+                     <div style="right: 0;bottom: 0;position: absolute; padding: 2em 2em;">
+                        <button id="submit-editor-content" type="button"
+                           class="btn btn-outline-info waves-effect waves-light" aria-haspopup="true"
+                           aria-expanded="false" data-toggle="modal" data-target="#largesizemodal">
+                           Submit
+                        </button>
+                        <button id="clear-editor" type="button" class="btn btn-outline-danger waves-effect waves-light">
+                           Clear
+                        </button>
+                     </div>
+                     <!-- Modal -->
+                     <div class="card-body pb-5">
+                        <div class="modal fade" id="largesizemodal">
+                           <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <form action="/" method="POST" id="file-save-form">
+                                    {{ form.hidden_tag() }}
+                                    <div class="modal-header">
+                                       {{ form.file_name(placeholder='Writing Project', class='form-control') }}
+                                       {{ form.file_content(style='display:none;') }}
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div>
+
+                                    <div class="modal-body editor-content-preview"
+                                       style="padding: 2em 4em; min-height: 60vh;">
+                                       <p>Type something...</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                       {{ form.save(class='btn btn-primary') }}
+                                       <input type="button" class="btn btn-secondary" data-dismiss="modal"
+                                          value="Close"></input>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+               <div class="card">
+                  <div class="card-body">
+                     <div class="d-flex justify-content-between">
+                        <div class="btn-group m-1" role="group">
+                           <button type="button" class="btn btn-outline-danger dropdown-toggle waves-effect waves-light"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Text Toner
+                           </button>
+                           <div class="dropdown-menu">
+                              <a href="javaScript:void();" class="dropdown-item">Comic</a>
+                              <div class="dropdown-divider"></div>
+                              <a href="javaScript:void();" class="dropdown-item">Critics</a>
+                              <div class="dropdown-divider"></div>
+                              <a href="javaScript:void();" class="dropdown-item">Irony</a>
+                              <div class="dropdown-divider"></div>
+                              <a href="javaScript:void();" class="dropdown-item">Other</a>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <input type="input" id="rangeTextToner" value="50" name="text_toner_range" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3">
+               <div class="card">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                     Words
+                     <span id="word-count">0</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                     Comic
+                     <span id="Comic">0</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                     Critics
+                     <span id="Critics">0</span>
+                  </li>
+                  <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Irony
+                        <span id="Irony">0</span>
+                     </li>
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Business
+                        <span id="Business">0</span>
+                     </li>
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Article
+                        <span id="Article">0</span>
+                     </li> -->
+               </div>
+
+               <div class="historyViewCard" style="display: none;">
+                  <h6 class="text-uppercase">History</a></h6>
+                  <div class="card">
+                     <div class="historyViewCardScroller" style="max-height: 15em;overflow: auto;" data-simplebar=""
+                        data-simplebar-auto-hide="true"></div>
+                  </div>
+               </div>
+               <!-- Alerts Pannel -->
+               <h6 class="text-uppercase">Alerts</a></h6>
+               <div id="accordion7">
+                  <div class="card mb-2">
+                     <div class="card-header" style="font-weight: normal;">
+                        <small style="text-transform: none; font-size: 100%;">Please start writing...</small>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="popUps"></div>
+   <div class="overlay"></div>
+</div>
+{% endblock %}
+
+{% block additionalscripts %}
+<script src="{{ url_for('static',filename='plugins/simplebar/js/simplebar.js') }}"></script>
+<script src="{{ url_for('static',filename='plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ url_for('static',filename='plugins/ion-rangeslider/js/range-slider-script.js') }}"></script>
+<script src="{{ url_for('static',filename='js/waves.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebar-menu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/app-script.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom-editor.js') }}"></script>
+{% endblock %}

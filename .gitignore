@@ -1,3 +1,14 @@
+#My Files
+*.zip
+venv/
+*_ignore.*
+/*_ignore/
+*.ipynb_checkpoints
+.webassets-cache
+db.sqlite
+user_files/
+temp_files/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

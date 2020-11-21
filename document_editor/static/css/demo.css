@@ -1,0 +1,70 @@
+[contenteditable][placeholder]:empty:before {
+  content: attr(placeholder);
+  position: absolute;
+  color: gray;
+  background-color: transparent;
+}
+
+.editor-container {
+    border: none;
+    height: 400px;
+    width: 100%;
+    position: relative;
+    margin: 2em;
+    border-radius: 0;
+}
+
+.custom-editor {
+    z-index: 1;
+    height: inherit;
+    width: inherit;
+    display: block;
+    overflow: auto;
+    background-color: transparent;
+    position: absolute;
+}
+
+.highlights, .custom-editor {
+  padding: 10px;
+  font: 20px/28px 'Open Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+.backdrop {
+    visibility: hidden;
+    z-index: 2;
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.highlights {
+    position: absolute;
+    color: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+span[class='mouseover'] {
+    /* pointer-events: none; */
+    z-index: 3;
+    visibility: visible;
+    margin-top: 1em;
+    height: 3px !important;
+    width: inherit;
+    opacity: 0.3;
+    /* background-color: rgba(255, 192, 203, 0.384); */
+    /* border-bottom: 4px solid pink; */
+    /* position: absolute !important; */
+}
+
+div[class="highlights"] > span[class="mouseover"]:hover {
+    opacity: 0.5;
+}
+
+.pupUpsCard .card-header:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+}
