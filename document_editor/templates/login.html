@@ -34,6 +34,12 @@
                   {{ form.submit(class='btn btn-primary btn-user btn-block') }}
                 </form>
                 <hr>
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+                </div>
+                {% endfor %}
                 <div class="text-center">
                   <a class="small" href="#">Forgot Password?</a>
                 </div>

@@ -52,10 +52,10 @@ def editor(file_id=None):
             data = file.read()
         form = SaveFileForm(id=user_file.id, file_name=user_file.file_name)
 
-    return render_template("editor.html", form=form, content=data)
+    return render_template("editor.html", form=form, content=data, title='Editor')
 
 
-@main_bp.route('/documents', methods=['GET'])
+@main_bp.route('/', methods=['GET'])
 @login_required
 def documents():
     files_meta = UserFiles.query.filter_by(user_id=current_user.get_id()).all()
