@@ -8,6 +8,7 @@ venv/
 db.sqlite
 user_files/
 temp_files/
+.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

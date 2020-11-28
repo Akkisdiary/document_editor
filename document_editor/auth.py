@@ -12,7 +12,7 @@ auth_bp = Blueprint(
 )
 
 
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main_bp.documents'))

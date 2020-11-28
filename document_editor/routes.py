@@ -55,7 +55,7 @@ def editor(file_id=None):
     return render_template("editor.html", form=form, content=data, title='Editor')
 
 
-@main_bp.route('/', methods=['GET'])
+@main_bp.route('/documents', methods=['GET'])
 @login_required
 def documents():
     files_meta = UserFiles.query.filter_by(user_id=current_user.get_id()).all()

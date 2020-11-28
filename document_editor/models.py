@@ -77,3 +77,8 @@ class UserFiles(db.Model):
         nullable=False,
         unique=False,
     )
+    file_name = db.Column(
+        db.Text,
+        nullable=True,
+        unique=False
+    )
