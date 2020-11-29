@@ -13,9 +13,7 @@
          <div class="container-fluid">
             <div class="document-editor">
                <div class="document-editor__editable-container">
-                  <div class="document-editor__editable">
-                     <p>The initial editor data.</p>
-                  </div>
+                  <div class="document-editor__editable"></div>
                </div>
             </div>
          </div>
@@ -27,5 +25,4 @@
 {% block additionalscripts %}
 <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
 <script src="{{ url_for('static',filename='js/editor.js') }}"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock %}

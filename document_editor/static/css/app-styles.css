@@ -155,8 +155,8 @@ a {
 }
 
 a:hover {
-  color: #224abe;
-  text-decoration: underline;
+  color: #112e83;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
@@ -547,6 +547,11 @@ pre code {
   padding-left: 0.75rem;
   margin-right: auto;
   margin-left: auto;
+}
+
+.container-fluid {
+  max-height: calc(100vh - var(--app-top-bar-height));
+  overflow: auto;
 }
 
 @media (min-width: 576px) {
@@ -4481,7 +4486,7 @@ input[type="button"].btn-block {
 
 .card-body {
   flex: 1 1 auto;
-  min-height: 1px;
+  height: 150px;
   padding: 1.25rem;
 }
 

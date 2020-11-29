@@ -22,12 +22,11 @@ main_bp = Blueprint(
 @login_required
 def editor(file_id=None):
     form = SaveFileForm()
-    data = None
 
     if form.validate_on_submit():
         now = datetime.now()
 
-        if form.id.data and form.file_content.data:
+        if form.id.data:
             file_meta = UserFiles.query.get(form.id.data)
             file_meta.modified = now
             file_meta.file_name = form.file_name.data
@@ -35,56 +34,26 @@ def editor(file_id=None):
             file_meta = UserFiles(created=now,
                                   modified=now,
                                   file_name=form.file_name.data,
-                                  user_id=current_user.get_id())
+                                  user_id=current_user.get_id(),
+                                  file_content=form.file_content.data)
             db.session.add(file_meta)
-
-        path = f"{current_app.config['USER_FILES']}/{current_user.get_id()}/{file_meta.created.strftime('%f')}.txt"
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'w') as f:
-            f.write(form.file_content.data.strip())
-
         db.session.commit()
         return redirect(url_for('main_bp.documents'))
 
     if file_id:
         user_file = UserFiles.query.get(file_id)
-        with open(f"./writing_artist/user_files/{current_user.get_id()}/{user_file.created.strftime('%f')}.txt", 'r') as file:
-            data = file.read()
-        form = SaveFileForm(id=user_file.id, file_name=user_file.file_name)
+        form = SaveFileForm(id=user_file.id,
+                            file_name=user_file.file_name,
+                            file_content=user_file.file_content)
 
-    return render_template("editor.html", form=form, content=data, title='Editor')
+    return render_template("editor.html", form=form, title='Editor')
 
 
 @main_bp.route('/documents', methods=['GET'])
 @login_required
 def documents():
     files_meta = UserFiles.query.filter_by(user_id=current_user.get_id()).all()
-    files = list()
-    clean = re.compile('<.*?>')
-    for f in files_meta:
-        try:
-            content = ''
-            with open(f"./writing_artist/user_files/{current_user.get_id()}/{f.created.strftime('%f')}.txt", 'r') as file:
-                data = re.sub(clean, '', file.read())
-                content = data[:100]
-            files.append((f, content))
-        except:
-            print('File not found -->', f.file_name)
-            db.session.delete(f)
-            db.session.commit()
-    return render_template("documents.html", files=files, title='Documents')
-
-
-@main_bp.route('/download_file/<int:idx>', methods=['GET'])
-@login_required
-def download_file(idx):
-    file = UserFiles.query.get(idx)
-
-    if file:
-        doc = html_to_doc(current_user.get_id(), file)
-        print(doc)
-        return send_file(doc, as_attachment=True, attachment_filename=f'{file.file_name}.docx')
-    return abort(404)
+    return render_template("documents.html", files=files_meta, title='Documents')
 
 
 @main_bp.route('/delete_file', methods=['POST'])
@@ -92,9 +61,6 @@ def download_file(idx):
 def delete_file():
     try:
         file = UserFiles.query.get(request.form.get('id'))
-        path = f"{current_app.config['USER_FILES']}/{current_user.get_id()}/{file.created.strftime('%f')}.txt"
-
-        os.remove(path)
         db.session.delete(file)
         db.session.commit()
         return jsonify('True')

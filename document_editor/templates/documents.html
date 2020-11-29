@@ -10,31 +10,28 @@
          {% include 'navbar.html' %}
 
          <div class="container-fluid">
+            <br><br>
             {% if files %}
-            {% for f, file_content in files %}
-            <div class="cardshadow mb-4">
-               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">{{ f.file_name }}</h6>
-                  <div class="dropdown no-arrow">
-                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            <div class="row">
+               {% for f in files %}
+               <div class="col-lg-3 file-card" id="{{ f.id }}">
+                  <div class="card shadow mb-4">
+                     <a href="/editor/{{ f.id }}">
+                        <div class="card-header py-3 ">
+                           <h6 class="m-0 font-weight-bold text-primary">{{ f.file_name }}</h6>
+
+                        </div>
+                        <div class="card-body">{{ f.file_content[:100] | safe }}</div>
                      </a>
-                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                     <div class="card-footer d-flex flex-row align-items-center justify-content-between">
+                        {{ f.modified.strftime('%d %b %Y %I:%M') }}
+                        <button class="fas fa-trash btn delete-file" style="color: rgb(255, 145, 145);"
+                           value="{{ f.id }}"></button>
                      </div>
                   </div>
                </div>
-               <div class="card-body">{{ file_content | safe }}</div>
-
-               <div class="card-footer">{{ f.modified.strftime('%d %b %Y %I:%M') }}</div>
+               {% endfor %}
             </div>
-            {% endfor %}
             {% else %}
             <h1 class="h3 mb-4 text-gray-800">No Files</h1>
             {% endif %}
@@ -49,4 +46,8 @@
 <a class="scroll-to-top rounded" href="#page-top">
    <i class="fas fa-angle-up"></i>
 </a>
+{% endblock %}
+
+{% block additionalscripts %}
+<script src="{{ url_for('static',filename='js/file.js') }}"></script>
 {% endblock %}
